@@ -80,7 +80,7 @@
                         </li>
                         
                         <li>
-                            <a href="departments.html"><i class="fa fa-hospital-o"></i> <span>Departments</span></a>
+                            <a href="./department"><i class="fa fa-hospital-o"></i> <span>Departments</span></a>
                         </li>
 						
 						<li class="submenu">
