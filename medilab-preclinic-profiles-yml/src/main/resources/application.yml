@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: medilab-preclinic
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+  profiles:
+    active:
+    - dev
+server:
+  port: 9090
+---
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/medilab-preclinic
+    username: root
+    password: root
+  jpa:
+    generate-ddl: true
+    show-sql: true
+  config:
+    activate:
+      on-profile:
+      - dev
+---
+spring:
+  h2:
+    console:
+      enabled: true
+      path: /h2Console
+  config:
+    activate:
+      on-profile:
+      - stage
