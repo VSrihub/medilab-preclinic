@@ -163,7 +163,7 @@
 																	<img src="assets/img/sent.png" alt="" width="50"
 																		height="46">
 																	<h3>Are you sure want to delete this
-																		Department? ${dept.id}</h3>
+																		Department?</h3>
 																	<form name="deleteForm">
 																		<div class="m-t-20">
 																			<a href="./deleteDept/${dept.id}"

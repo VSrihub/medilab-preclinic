@@ -25,9 +25,9 @@ import com.nareshit.medilab.department.repo.DepartmentRepo;
 public class DepartmentServiceImpl implements DepartmentService {
 	
 	@Autowired
-	//private DepartmentRepo deptRepo;
+	private DepartmentRepo deptRepo;
 	
-	private DepartmentDao deptRepo;
+	//private DepartmentDao deptRepo;
 
 	/* (non-Javadoc)
 	 * @see com.nareshit.medilab.department.service.DepartmentService#save(com.nareshit.medilab.department.bean.DepartmentBean)
