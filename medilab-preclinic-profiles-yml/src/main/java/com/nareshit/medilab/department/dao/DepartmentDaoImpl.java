@@ -68,8 +68,14 @@ public class DepartmentDaoImpl implements DepartmentDao {
 		SessionFactory sessionFactory = enityManagerFactory.unwrap(SessionFactory.class);
 		Session session = sessionFactory.openSession();
 		Department dept = session.get(Department.class, deptId);
-		session.delete(dept);
-		session.beginTransaction().commit();
+		if(dept != null) {
+			session.delete(dept);
+			session.beginTransaction().commit();
+		}else {
+			System.out.println("throw an exception by saying no Department found with the Id:\t"+deptId);
+		}
+		
+		
 	}
 
 	/* (non-Javadoc)

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+<!-- Rolling File appender Configuration -->
+	<appender name="RollingAppender"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>D:/personals/trainigs/medilab-logs/medilab_common.logs</file>
+		<encoder
+			class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>%d{MM:dd HH:mm:ss.SSS} [%t] [%level] [%logger{36}] - %msg%n
+			</Pattern>
+		</encoder>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			
+			<fileNamePattern>D:/personals/trainigs/medilab-logs/medilab_backup_%d{dd-MM-yyyy}%i.log
+			  
+			</fileNamePattern>
+			<maxFileSize>20</maxFileSize>
+			<maxHistory>10</maxHistory>
+			<totalSizeCap>10KB</totalSizeCap>
+			
+		</rollingPolicy>
+	</appender>
+	<!-- Department Module Rolling File appender Configuration End-->
+	
+	<appender name="DepartmentModuleRollingAppender"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>D:/personals/trainigs/medilab-logs/medilab-dept.logs</file>
+		<encoder
+			class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>%d{MM:dd HH:mm:ss.SSS} [%t] [%level] [%logger{36}] - %msg%n
+			</Pattern>
+		</encoder>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>D:/personals/trainigs/medilab-logs/medilab-dept_%d{dd-MM-yyyy}.log
+			</fileNamePattern>
+			<maxHistory>10</maxHistory>
+			<totalSizeCap>10KB</totalSizeCap>
+		</rollingPolicy>
+	</appender>
+	<!-- Department Module  Rolling File appender Configuration End-->
+	
+	<appender name="ConsoleAppender"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>
+				%d{MM:dd HH:mm:ss.SSS} [%t] [%level] [%logger{36}] - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+	
+	<root level="debug">
+		<appender-ref ref="ConsoleAppender"></appender-ref>
+	</root>
+	
+	<!-- Logging custom package -->
+	<logger name="com.nareshit.medilab.dashboard" level="info"
+		additivity="false">
+		<appender-ref ref="ConsoleAppender"></appender-ref>
+	</logger>
+	
+	<!-- Logging custom package -->
+	<logger name="com.nareshit.medilab.department" level="info"
+		additivity="false">
+		<appender-ref ref="DepartmentModuleRollingAppender"></appender-ref>
+	</logger>
+	
+	<!-- Logging spring boot package -->
+	<logger name="org.springframework" level="info" additivity="false">
+		<appender-ref ref="ConsoleAppender"></appender-ref>
+	</logger>
+	
+	
+</configuration>

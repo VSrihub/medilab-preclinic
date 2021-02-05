@@ -9,7 +9,16 @@ spring:
     active:
     - dev
 server:
-  port: 9090
+  port: 9091 
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: beans,mappings,metrics,env,loggers,shutdown,medilab-actuator
+  endpoint:
+    shutdown:
+      enabled: true
 ---
 spring:
   datasource:

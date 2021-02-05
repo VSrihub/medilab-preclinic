@@ -5,15 +5,15 @@ package com.nareshit.medilab.department.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nareshit.medilab.department.bean.DepartmentBean;
-import com.nareshit.medilab.department.common.InmemoryDB;
-import com.nareshit.medilab.department.dao.DepartmentDao;
 import com.nareshit.medilab.department.model.Department;
 import com.nareshit.medilab.department.repo.DepartmentRepo;
 
@@ -32,6 +32,11 @@ public class DepartmentServiceImpl implements DepartmentService {
 	/* (non-Javadoc)
 	 * @see com.nareshit.medilab.department.service.DepartmentService#save(com.nareshit.medilab.department.bean.DepartmentBean)
 	 */
+
+	@Transactional(isolation=Isolation.READ_COMMITTED,
+			propagation=Propagation.REQUIRED,
+			rollbackFor=RuntimeException.class,
+			readOnly=false, timeout=2)
 	@Override
 	public DepartmentBean save(DepartmentBean deptBean) {
 		Department deptModel = new Department();
@@ -40,6 +45,9 @@ public class DepartmentServiceImpl implements DepartmentService {
 		BeanUtils.copyProperties(deptBean, deptModel);
 		
 		deptModel = deptRepo.save(deptModel);
+		/*if(deptModel.getId() >0) {
+			throw new RuntimeException("some exception happed while saving just imagine");
+		}*/
 		
 		//convert the bean properties to model properties
 		BeanUtils.copyProperties(deptModel, deptBean);		
