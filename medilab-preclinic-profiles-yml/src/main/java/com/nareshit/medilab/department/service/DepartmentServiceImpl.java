@@ -5,6 +5,7 @@ package com.nareshit.medilab.department.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,8 +81,14 @@ public class DepartmentServiceImpl implements DepartmentService {
 	 */
 	@Override
 	public DepartmentBean findOne(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<Department> deptOption = deptRepo.findById(id);
+		//Department deptModel = deptOption.isPresent()?deptOption.get():(Department) deptOption.empty().get();
+		DepartmentBean deptBean = new DepartmentBean(); 
+		if(deptOption.isPresent()) {
+			BeanUtils.copyProperties(deptOption.get(), deptBean);
+		}	
+		
+		return deptBean;
 	}
 
 	/* (non-Javadoc)
