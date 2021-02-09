@@ -5,8 +5,6 @@ package com.nareshit.medilab.department.controller;
 
 import java.util.List;
 
-import javax.websocket.server.PathParam;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -52,7 +50,7 @@ public class DepartmentController {
 	}
 	
 	@RequestMapping("/editDept/{id}")
-	public String editDepartments(@PathParam("id") String deptId,Model model) {
+	public String editDepartments(@PathVariable("id") String deptId,Model model) {
 		System.out.println("editDepartments bean data is:\t "+deptId);
 		
 		List<DepartmentBean> deptList = deptService.findAll();
