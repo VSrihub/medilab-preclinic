@@ -1,0 +1,41 @@
+spring:
+  application:
+    name: medilab-department-service
+  profiles:
+    active:
+    - dev
+server:
+  port: 6060
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: beans,mappings,metrics,env,loggers,shutdown,medilab-actuator
+  endpoint:
+    shutdown:
+      enabled: true
+---
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/medilab-department-service
+    username: root
+    password: root
+  jpa:
+    generate-ddl: true
+    show-sql: true
+  config:
+    activate:
+      on-profile:
+      - dev
+---
+spring:
+  h2:
+    console:
+      enabled: true
+      path: /h2Console
+  config:
+    activate:
+      on-profile:
+      - stage
