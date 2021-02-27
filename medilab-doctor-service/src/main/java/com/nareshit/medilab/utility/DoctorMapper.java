@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.json.JSONObject;
+
 import com.nareshit.medilab.bean.DoctorBean;
 import com.nareshit.medilab.model.Doctor;
 
@@ -38,7 +40,13 @@ public class DoctorMapper {
 		doct.setFname(doctDomain.getFname());
 		doct.setMobile(doctDomain.getMobile());
 		doct.setExperience(doctDomain.getExperience());
-		doct.setSpecialist(doctDomain.getSpecialization());
+		String jsonString = doctDomain.getSpecialization();
+		JSONObject jsonObject = new JSONObject(jsonString);
+		if(jsonObject != null && jsonObject.has("name")) {
+			String speciality = jsonObject.getString("name");
+			doct.setSpecialist(speciality);
+		}
+		
 		
 		boolean doctStatus = doctDomain.isStatus();
 		doct.setStatus(String.valueOf(doctStatus));

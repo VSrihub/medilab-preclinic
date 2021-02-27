@@ -1,12 +1,17 @@
 package com.nareshit.medilab.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.hibernate.dialect.identity.HSQLIdentityColumnSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nareshit.medilab.bean.DoctorBean;
 import com.nareshit.medilab.dao.DoctorDao;
+import com.nareshit.medilab.external.client.DoctorFeignProxy;
+import com.nareshit.medilab.external.client.DoctorOutboundCommunicator;
 import com.nareshit.medilab.model.Doctor;
 import com.nareshit.medilab.utility.DoctorMapper;
 
@@ -15,11 +20,20 @@ public class DoctorServiceImpl implements DoctorService {
 
 	@Autowired
 	private DoctorDao hospDao;
+	
+	@Autowired
+	private DoctorFeignProxy departmentProxy;
 
 	@Override
 	public DoctorBean saveDoctor(DoctorBean hosp) {
 		Doctor doc = mapBeanToDomain(hosp);
 		Doctor hospDoamin = hospDao.addDoctor(doc);
+		
+		//String specialization = DoctorOutboundCommunicator.getSpecialization(Integer.valueOf(hosp.getSpecialist()));
+		String specialization = departmentProxy.getSpecialization(Integer.valueOf(hosp.getSpecialist()));
+		System.out.println("feign client provided data is:\t"+specialization);
+		hospDoamin.setSpecialization(specialization);
+		
 		return DoctorMapper.mapDomainToBean(hospDoamin);
 	}
 
