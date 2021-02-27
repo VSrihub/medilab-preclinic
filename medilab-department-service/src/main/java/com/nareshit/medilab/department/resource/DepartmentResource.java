@@ -97,9 +97,9 @@ public class DepartmentResource {
 		
 		DepartmentBean deptBean = deptService.findOne(Integer.valueOf(deptId));
 	    if(deptBean != null) {
-	    	return ResponseEntity.status(HttpStatus.FOUND).body(deptBean);
+	    	return ResponseEntity.status(HttpStatus.OK).body(deptBean);
 	    }else {
-	    	return ResponseEntity.status(HttpStatus.NOT_FOUND).body(deptBean);
+	    	return ResponseEntity.status(HttpStatus.OK).body(deptBean);
 	    }
 		
 		
